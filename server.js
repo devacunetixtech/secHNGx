@@ -14,12 +14,6 @@ mongoose.connect(uri, {
 .catch((error)=>console.log("MongoDB Connection Failed: ", error.message));
 
 const personSchema = new mongoose.Schema({
-  id: {
-    type: Number,
-    unique: true,
-    required: true,
-    default: 1, // Starting value
-  },
   name: String,
 });
 
@@ -28,7 +22,6 @@ const Person = mongoose.model('Person', personSchema);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-let nextId = 1;
 // Create a new person
 app.post('/api', async (req, res) => {
   const { name } = req.body;
@@ -37,11 +30,10 @@ app.post('/api', async (req, res) => {
     return res.status(400).json({ error: 'Name must be a string' });
   }
 
-  const person = new Person({ id:nextId, name });
+  const person = new Person({ name });
 
   try {
     const savedPerson = await person.save();
-    nextId++;
     res.json(savedPerson);
   } catch (err) {
     res.status(500).json({ error: 'Could not create person' });
@@ -49,11 +41,11 @@ app.post('/api', async (req, res) => {
 });
 
 // Fetch details of a person by ID
-app.get('/api/:id', async (req, res) => {
-  const { id } = req.params;
+app.get('/api/:user_id', async (req, res) => {
+  const { user_id } = req.params;
 
   try {
-    const person = await Person.findById(id);
+    const person = await Person.findById(user_id);
     if (!person) {
       return res.status(404).json({ error: 'Person not found' });
     }
@@ -64,8 +56,8 @@ app.get('/api/:id', async (req, res) => {
 });
 
 // Update details of a person by ID
-app.put('/api/:id', async (req, res) => {
-  const { id } = req.params;
+app.put('/api/:user_id', async (req, res) => {
+  const { user_id } = req.params;
   const { name } = req.body;
 
   if (typeof name !== 'string') {
@@ -73,7 +65,7 @@ app.put('/api/:id', async (req, res) => {
   }
 
   try {
-    const updatedPerson = await Person.findByIdAndUpdate(id, { name }, { new: true });
+    const updatedPerson = await Person.findByIdAndUpdate(user_id, { name }, { new: true });
     if (!updatedPerson) {
       return res.status(404).json({ error: 'Person not found' });
     }
@@ -84,11 +76,11 @@ app.put('/api/:id', async (req, res) => {
 });
 
 // Delete a person by ID
-app.delete('/api/:id', async (req, res) => {
-  const { id } = req.params;
+app.delete('/api/:user_id', async (req, res) => {
+  const { user_id } = req.params;
 
   try {
-    const deletedPerson = await Person.findByIdAndRemove(id);
+    const deletedPerson = await Person.findByIdAndRemove(user_id);
     if (!deletedPerson) {
       return res.status(404).json({ error: 'Person not found' });
     }
