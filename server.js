@@ -41,11 +41,11 @@ app.post('/api', async (req, res) => {
 });
 
 // Fetch details of a person by ID
-app.get('/api/:user_id', async (req, res) => {
-  const { user_id } = req.params;
+app.get('/api/:id', async (req, res) => {
+  const { id } = req.params;
 
   try {
-    const person = await Person.findById(user_id);
+    const person = await Person.findById(id);
     if (!person) {
       return res.status(404).json({ error: 'Person not found' });
     }
@@ -56,8 +56,8 @@ app.get('/api/:user_id', async (req, res) => {
 });
 
 // Update details of a person by ID
-app.put('/api/:user_id', async (req, res) => {
-  const { user_id } = req.params;
+app.put('/api/:id', async (req, res) => {
+  const { id } = req.params;
   const { name } = req.body;
 
   if (typeof name !== 'string') {
@@ -65,7 +65,7 @@ app.put('/api/:user_id', async (req, res) => {
   }
 
   try {
-    const updatedPerson = await Person.findByIdAndUpdate(user_id, { name }, { new: true });
+    const updatedPerson = await Person.findByIdAndUpdate(id, { name }, { new: true });
     if (!updatedPerson) {
       return res.status(404).json({ error: 'Person not found' });
     }
@@ -76,11 +76,11 @@ app.put('/api/:user_id', async (req, res) => {
 });
 
 // Delete a person by ID
-app.delete('/api/:user_id', async (req, res) => {
-  const { user_id } = req.params;
+app.delete('/api/:id', async (req, res) => {
+  const { id } = req.params;
 
   try {
-    const deletedPerson = await Person.findByIdAndRemove(user_id);
+    const deletedPerson = await Person.findByIdAndRemove(id);
     if (!deletedPerson) {
       return res.status(404).json({ error: 'Person not found' });
     }
