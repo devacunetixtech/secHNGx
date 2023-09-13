@@ -18,7 +18,7 @@ Using your Browser,
 To ensure its sending to the Database(MONGODB)
 Copy the unique id from POSTMAN
 Open your Browser and paste the link below:
-"https://sechngx.onrender.com/api/_id"
+"https://sechngx.onrender.com/api/user_id"
 
 Right in your browser,you will get a response in the format
 {
