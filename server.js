@@ -14,6 +14,12 @@ mongoose.connect(uri, {
 .catch((error)=>console.log("MongoDB Connection Failed: ", error.message));
 
 const personSchema = new mongoose.Schema({
+  id: {
+    type: Number,
+    unique: true,
+    required: true,
+    default: 1, // Starting value
+  },
   name: String,
 });
 
@@ -22,6 +28,7 @@ const Person = mongoose.model('Person', personSchema);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+let nextId = 1;
 // Create a new person
 app.post('/api', async (req, res) => {
   const { name } = req.body;
@@ -30,10 +37,11 @@ app.post('/api', async (req, res) => {
     return res.status(400).json({ error: 'Name must be a string' });
   }
 
-  const person = new Person({ name });
+  const person = new Person({ id:nextId, name });
 
   try {
     const savedPerson = await person.save();
+    nextId++;
     res.json(savedPerson);
   } catch (err) {
     res.status(500).json({ error: 'Could not create person' });
