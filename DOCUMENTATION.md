@@ -13,7 +13,7 @@ POST Response:
     "__v": 0
 }
 For GET REQUEST:
-https://sechngx.onrender.com/api/_id
+https://sechngx.onrender.com/api/user_id
 GET RESPONSE:
 {
     "_id": "",    //unique id will be passed here
@@ -21,13 +21,13 @@ GET RESPONSE:
     "__v": 0
 }
 For PUT REQUEST:
-https://sechngx.onrender.com/api/_id
+https://sechngx.onrender.com/api/user_id
 PUT RESPONSE:
 {
     "name": "Mark",   //new name you want to update old name to
 }
 For DELETE REQUEST:
-https://sechngx.onrender.com/api/_id
+https://sechngx.onrender.com/api/user_id
 DELETE RESPONSE:
 The name attached to this id will get deleted in the database,if you try to GET REQUEST it,an error willl occur.
 
