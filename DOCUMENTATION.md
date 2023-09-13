@@ -1,3 +1,6 @@
+// Link to the UML
+https://drive.google.com/file/d/1GcEmwJPnRVXMu29uLHU-wsROctSdsNWL/view?usp=sharing
+
 Standard formats for requests and responses for each endpoint.
 For POST request:
 {
@@ -86,6 +89,3 @@ mongoose.connect(uri, {
 
 6. Error Handling
 The application includes error handling as it responds with appropriate HTTP status codes and error messages in JSON format.
-
-// Link to the UML
-https://drive.google.com/file/d/1GcEmwJPnRVXMu29uLHU-wsROctSdsNWL/view?usp=sharing
